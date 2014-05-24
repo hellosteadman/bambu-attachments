@@ -21,7 +21,7 @@ class Migration(SchemaMigration):
             ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
         ))
-        db.send_create_signal(u'bambu_attachments', ['Attachment'])
+        db.send_create_signal('bambu_attachments', ['Attachment'])
 
         # Adding unique constraint on 'Attachment', fields ['content_type', 'object_id', 'file']
         db.create_unique('attachments_attachment', ['content_type_id', 'object_id', 'file'])
@@ -36,7 +36,7 @@ class Migration(SchemaMigration):
 
 
     models = {
-        u'bambu_attachments.attachment': {
+        'bambu_attachments.attachment': {
             'Meta': {'unique_together': "(('content_type', 'object_id', 'file'),)", 'object_name': 'Attachment', 'db_table': "'attachments_attachment'"},
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
