@@ -51,7 +51,6 @@ Contents
    :maxdepth: 2
    
    settings
-   cron
 
 API reference
 =============

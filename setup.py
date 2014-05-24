@@ -4,7 +4,7 @@ from os import path
 
 setup(
 	name = 'bambu-attachments',
-	version = '2.0',
+	version = '2.0.1',
 	description = 'A setup for handling generic model attachments',
 	author = 'Steadman',
 	author_email = 'mark@steadman.io',
