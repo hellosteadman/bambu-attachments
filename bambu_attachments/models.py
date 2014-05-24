@@ -10,10 +10,6 @@ from bambu_attachments import MIMETYPES, helpers
 from mimetypes import guess_type
 from os import path
 
-class CustomTitleString(str):
-    def title(self):
-        return str(self[6:]).title()
-
 class Attachment(models.Model):
     file = models.FileField(upload_to = helpers.upload_attachment_file)
     size = models.PositiveIntegerField(editable = False)
@@ -98,7 +94,6 @@ class Attachment(models.Model):
     class Meta:
         unique_together = ('content_type', 'object_id', 'file')
         db_table = 'attachments_attachment'
-        app_label = CustomTitleString('bambu_attachments')
 
 @receiver(post_delete, sender = Attachment)
 def attachment_delete(sender, instance, **kwargs):

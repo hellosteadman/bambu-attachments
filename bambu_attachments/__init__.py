@@ -3,6 +3,7 @@ __version__ = '2.0.1'
 from django.conf import settings
 import re
 
+default_app_config = 'bambu_attachments.apps.AttachmentsConfig'
 MIMETYPES = getattr(settings, 'ATTACHMENTS_MIMETYPES',
     (
         'application/x-troff-msvideo',
