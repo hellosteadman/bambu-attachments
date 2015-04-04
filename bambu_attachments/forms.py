@@ -8,3 +8,9 @@ class AttachmentForm(forms.ModelForm):
     
     class Meta:
         model = Attachment
+        fields = (
+            'file',
+            'title',
+            'description',
+            'featured'
+        )

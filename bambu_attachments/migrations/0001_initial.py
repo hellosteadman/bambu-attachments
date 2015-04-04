@@ -1,61 +1,37 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import bambu_attachments.helpers
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Attachment'
-        db.create_table('attachments_attachment', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('file', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
-            ('size', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('mimetype', self.gf('django.db.models.fields.CharField')(max_length=50, db_index=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('featured', self.gf('django.db.models.fields.BooleanField')(default=False, db_index=True)),
-            ('saved', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-        ))
-        db.send_create_signal('bambu_attachments', ['Attachment'])
+    dependencies = [
+        ('contenttypes', '0002_remove_content_type_name'),
+    ]
 
-        # Adding unique constraint on 'Attachment', fields ['content_type', 'object_id', 'file']
-        db.create_unique('attachments_attachment', ['content_type_id', 'object_id', 'file'])
-
-
-    def backwards(self, orm):
-        # Removing unique constraint on 'Attachment', fields ['content_type', 'object_id', 'file']
-        db.delete_unique('attachments_attachment', ['content_type_id', 'object_id', 'file'])
-
-        # Deleting model 'Attachment'
-        db.delete_table('attachments_attachment')
-
-
-    models = {
-        'bambu_attachments.attachment': {
-            'Meta': {'unique_together': "(('content_type', 'object_id', 'file'),)", 'object_name': 'Attachment', 'db_table': "'attachments_attachment'"},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'featured': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'db_index': 'True'}),
-            'file': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'mimetype': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'saved': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'size': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        }
-    }
-
-    complete_apps = ['bambu_attachments']
+    operations = [
+        migrations.CreateModel(
+            name='Attachment',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('file', models.FileField(upload_to=bambu_attachments.helpers.upload_attachment_file)),
+                ('size', models.PositiveIntegerField(editable=False)),
+                ('mimetype', models.CharField(max_length=50, editable=False, db_index=True)),
+                ('title', models.CharField(max_length=100)),
+                ('description', models.TextField(null=True, blank=True)),
+                ('featured', models.BooleanField(default=False, db_index=True)),
+                ('saved', models.BooleanField(default=True, editable=False)),
+                ('object_id', models.PositiveIntegerField()),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+            ],
+            options={
+                'db_table': 'attachments_attachment',
+            },
+        ),
+        migrations.AlterUniqueTogether(
+            name='attachment',
+            unique_together=set([('content_type', 'object_id', 'file')]),
+        ),
+    ]
