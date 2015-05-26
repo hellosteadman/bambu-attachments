@@ -4,13 +4,13 @@ from os import path
 
 setup(
 	name = 'bambu-attachments',
-	version = '3.0',
+	version = '3.0a',
 	description = 'A setup for handling generic model attachments',
 	author = 'Steadman',
 	author_email = 'mark@steadman.io',
 	url = 'https://github.com/iamsteadman/bambu-attachments',
 	long_description = open(path.join(path.dirname(__file__), 'README')).read(),
-	install_requires = ['Django>=1.4'],
+	install_requires = ['Django>=1.8'],
 	packages = [
 		'bambu_attachments',
 		'bambu_attachments.migrations',

@@ -1,4 +1,4 @@
-__version__ = '3.0'
+__version__ = '3.0a'
 
 from django.conf import settings
 import re
