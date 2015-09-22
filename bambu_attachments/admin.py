@@ -1,4 +1,4 @@
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes import admin as generic
 from bambu_attachments.models import Attachment
 from bambu_attachments.forms import AttachmentForm
 
