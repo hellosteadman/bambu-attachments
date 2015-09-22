@@ -94,6 +94,7 @@ class Attachment(models.Model):
     class Meta:
         unique_together = ('content_type', 'object_id', 'file')
         db_table = 'attachments_attachment'
+        app_label = 'bambu_attachments'
 
 @receiver(post_delete, sender = Attachment)
 def attachment_delete(sender, instance, **kwargs):
