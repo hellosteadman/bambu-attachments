@@ -1,8 +1,7 @@
-__version__ = '3.0a'
-
 from django.conf import settings
 import re
 
+__version__ = '3.1'
 default_app_config = 'bambu_attachments.apps.AttachmentsConfig'
 MIMETYPES = getattr(settings, 'ATTACHMENTS_MIMETYPES',
     (
